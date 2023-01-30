@@ -1,0 +1,19 @@
+---
+const { title, author, description } = Astro.props;
+---
+
+<section class="md:flex bg-slate-800 rounded-xl p-8 md:p-0">
+  <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
+    <blockquote>
+      <p class="text-lg text-slate-400">
+        {description}
+      </p>
+    </blockquote>
+    <div class="font-medium">
+      <div class="text-sky-500">{title}</div>
+      <div class="text-slate-400 font-normal">
+        {author}
+      </div>
+    </div>
+  </div>
+</section>

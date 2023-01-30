@@ -1,0 +1,50 @@
+---
+import BlinkistLogo from "../components/BlinkistLogo.astro";
+import BlogPreview from "../components/BlogPreview.astro";
+---
+
+<div class="container p-12 mx-auto grid place-content-center min-h-[100vh]">
+  <div class="max-w-[200px] md:max-w-[50vh]">
+    <BlinkistLogo />
+  </div>
+
+  <h1 class="text-xl font-medium pt-4 text-slate-700">Welcome to the blog</h1>
+  <p class="text-slate-500">
+    Read, read, read ... and some clever description goes here. Some clever
+    description goes here. Some clever description goes here.
+  </p>
+
+  <p class="pt-12 pb-6 text-slate-700">Our lastest blogs</p>
+
+  <ol class="flex flex-col md:flex-row gap-4">
+    <li>
+      <a href="/blogs/the-latte-factor">
+        <BlogPreview
+          author="James McCathy"
+          title="The Latte Factor"
+          description="The Latte Factor (2019) tells the story of Zoey, a fictional young woman in her late 20s living in Brooklyn. "
+        />
+      </a>
+    </li>
+
+    <li>
+      <a href="/blogs/lives-of-the-stoics">
+        <BlogPreview
+          author="James McCathy"
+          title="Lives of the Stoics"
+          description="Lives of the Stoics (2020) explores Stoicism through the lives of its earliest followers. Packed with insights into the leaders, wars, and politics of classical antiquity."
+        />
+      </a>
+    </li>
+
+    <li>
+      <a href="/blogs/betting-on-you">
+        <BlogPreview
+          author="Betting on You"
+          title="Betting on you"
+          description="Betting on You (2021) is a hands-on guide to navigating the modern workplace. If you're an employee in a big corporation ..."
+        />
+      </a>
+    </li>
+  </ol>
+</div>

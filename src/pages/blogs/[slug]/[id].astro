@@ -1,0 +1,83 @@
+---
+import { getBlogBySlug } from "@utils";
+import Blog from "src/layout/Blog.astro";
+import BlinkistLogo from "src/components/BlinkistLogo.astro";
+
+const { slug = "", id = "" } = Astro.params;
+
+// get article details (from CMS)
+const details = await getBlogBySlug(`${slug}-${id}`);
+
+if (!details) {
+  return Astro.redirect("/blog404");
+}
+---
+
+<Blog metaDescription={details.description}>
+  <div class="container mx-auto p-12">
+    <nav class="max-w-[10vw]">
+      <BlinkistLogo />
+    </nav>
+
+    {
+      details.poster && (
+        <figure class="mt-6">
+          <img
+            class="rounded-lg"
+            src={details.poster}
+            alt={`${details.title} cover image`}
+          />
+          <figcaption class="absolute px-4 text-lg text-white bottom-6">
+            <p class="max-w-md">{details.title}</p>
+          </figcaption>
+        </figure>
+      )
+    }
+
+    <article
+      id="article"
+      data-id={id}
+      class="grid gap-6 place-content-center mx-auto pt-12"
+    >
+      <h1 class="text-3xl font-medium pt-4 text-slate-700">
+        {details.title}
+      </h1>
+      <p class="text-slate-500">{details.description.repeat(20)}</p>
+
+      <a
+        id="cta"
+        target="_blank"
+        href="https://www.blinkist.com/"
+        class="px-5 py-2.5 mt-10 bg-gray-900 text-white rounded-md text-center"
+      >
+        {details.cta}
+      </a>
+    </article>
+  </div>
+</Blog>
+<script>
+  import { trackEvent } from "@utils";
+
+  const cta = document.querySelector("#cta");
+  const article = document.querySelector("#article");
+
+  if (article instanceof HTMLElement && article.dataset.id) {
+    const { id } = article.dataset;
+
+    trackEvent({
+      action: "view",
+      description: "User viewed a blog", // sample description
+      experimentVariant: id,
+    });
+
+    if (cta instanceof HTMLElement) {
+      cta.addEventListener("click", function () {
+        trackEvent({
+          action: "click",
+          description: "User clicked the cta to sign up", // sample description
+          experimentVariant: id,
+        });
+      });
+    }
+  }
+</script>
